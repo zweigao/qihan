@@ -1,0 +1,52 @@
+{
+  "dashboard": {
+    "icon": "appstore-o",
+    "link": "/dashboard",
+    "title": "控制台"
+  },
+  "manager": {
+    "icon": "team",
+    "link": "/manager",
+    "title": "教务人员管理",
+    "sub": [
+      {
+        "link": "/manager/add",
+        "title": "新增人员"
+      },
+      {
+        "link": "/manager/list",
+        "title": "人员列表"
+      }
+    ]
+  },
+  "finance": {
+    "icon": "credit-card",
+    "link": "/finance",
+    "title": "财务人员管理",
+    "sub": [
+      {
+        "link": "/finance/add",
+        "title": "新增人员"
+      },
+      {
+        "link": "/finance/list",
+        "title": "人员列表"
+      }
+    ]
+  },
+  "market": {
+    "icon": "credit-card",
+    "link": "/market",
+    "title": "市场人员管理",
+    "sub": [
+      {
+        "link": "/market/add",
+        "title": "新增人员"
+      },
+      {
+        "link": "/market/list",
+        "title": "人员列表"
+      }
+    ]
+  }
+}

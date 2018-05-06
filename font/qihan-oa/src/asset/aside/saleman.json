@@ -1,0 +1,12 @@
+{
+  "dashboard": {
+    "icon": "appstore-o",
+    "link": "/dashboard",
+    "title": "控制台"
+  },
+  "achivement": {
+    "icon": "area-chart",
+    "link": "/staffs/achievement",
+    "title": "业绩记录"
+  }
+}

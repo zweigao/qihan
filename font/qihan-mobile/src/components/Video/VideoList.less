@@ -1,0 +1,23 @@
+.video-frame {
+  width: 100%;
+  border: 0;
+  margin-top: 180px;
+  height: 600px;
+}
+
+@media (orientation: landscape) {
+  .video-frame {
+    margin-top: 80px;
+  }
+}
+
+.modal {
+  :global(.am-modal-close-x) {
+    &::after {
+      font-weight: bold;
+    }
+  }
+  :global(.am-modal-content) {
+    background: transparent;
+  }
+}

@@ -1,0 +1,90 @@
+:global {
+  //@import "nprogress";
+  html, body, #root {
+    height: 100%;
+    background: #ECECEC;
+    color: #666;
+    .ant-table-thead > tr.ant-table-row-hover, .ant-table-tbody > tr.ant-table-row-hover, .ant-table-thead > tr:hover, .ant-table-tbody > tr:hover{
+      background-color: rgba(0,0,0,.02);
+    }
+    .chat-card .ant-card-body{
+      padding: 5px 15px;
+    }
+    .notify-page .ant-card-body{
+      padding: 10px 0;
+    }
+    .notify-card{
+      text-align: left;
+      margin-top: 10px;
+    }
+    .notify-card .ant-card-body{
+      padding: 10px 20px;
+    }
+    .ant-menu-item-active, .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
+      background-color: inherit;
+      color: #ee491f;
+    }
+    .ant-menu-item:hover{
+      background-color: rgba(0,0,0,.05);
+    }
+    .ant-menu-item .anticon{
+      color: lightgray;
+    }
+    .ant-menu-item:hover .anticon{
+      color: #ee491f;
+    }
+    .ant-menu-item-selected{
+      color: #ee491f;
+      background-color: #fff0ed;
+    }
+    .ant-menu-item-selected .anticon{
+      color: #ee491f;
+    }
+    .ant-menu-horizontal > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu:hover, .ant-menu-horizontal > .ant-menu-item-active, .ant-menu-horizontal > .ant-menu-submenu-active, .ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal > .ant-menu-submenu-selected{
+      border-bottom: 2px solid #ee491f;
+    }
+    .ant-menu-item-selected > a, .ant-menu-item-selected > a:hover{
+      color: #ee491f;
+    }
+    .ant-menu-item:hover > a:hover{
+      color: #ee491f;
+    }
+    .header-menu{
+      .ant-menu-item, .ant-menu-submenu{
+        border-bottom: none;
+      }
+      .ant-menu-item:hover, .ant-menu-submenu:hover{
+        border-bottom: none;
+      }
+      .ant-menu-item-selected{
+        background-color: inherit;
+      }
+    }
+    .ant-card-head-title{
+      font-weight: normal;
+    }
+    .ant-input-group-addon{
+      background: white;
+      .anticon{
+        color: #888;
+      }
+    }
+    .clearfix{
+      &::after{
+        clear: both;
+        content: ' '
+      }
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 4px;
+  height: 10px;
+  background: #DDD;
+}

@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "icon": "appstore-o",
+    "link": "/dashboard",
+    "title": "控制台"
+  },
+  "staffs": {
+    "icon": "team",
+    "link": "/staffs",
+    "title": "业务人员管理",
+    "sub": [
+      {
+        "link": "/staffs/add",
+        "title": "新增人员"
+      },
+      {
+        "link": "/staffs/list",
+        "title": "人员列表"
+      }
+    ]
+  }
+}

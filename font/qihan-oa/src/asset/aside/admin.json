@@ -1,0 +1,104 @@
+{
+  "dashboard": {
+    "icon": "appstore-o",
+    "link": "/dashboard",
+    "title": "控制台"
+  },
+  "students": {
+    "icon": "user",
+    "link": "/students",
+    "title": "用户管理",
+    "sub": [
+      {
+        "link": "/students/notify",
+        "title": "系统通知"
+      },
+      {
+        "link": "/students/applyment",
+        "title": "报名信息管理"
+      },
+      {
+        "link": "/students/logistics",
+        "title": "教材物流管理"
+      },
+      {
+        "link": "/students/list",
+        "title": "学员管理"
+      },
+      {
+        "link": "/students/enter-exam",
+        "title": "报考管理"
+      }
+    ]
+  },
+  "register": {
+    "icon": "calendar",
+    "link": "/register",
+    "title": "报名报考管理",
+    "sub": [
+      {
+        "link": "/register/applyment-time",
+        "title": "报名时间"
+      },
+      {
+        "link": "/register/exam-time",
+        "title": "报考时间"
+      }
+    ]
+  },
+  "exams": {
+    "icon": "exception",
+    "link": "/questions",
+    "title": "题库资源管理",
+    "sub": [
+      {
+        "link": "/questions/add",
+        "title": "添加题目"
+      },
+      {
+        "link": "/questions/list",
+        "title": "题目列表"
+      }
+    ]
+  },
+  "videos": {
+    "icon": "video-camera",
+    "link": "/videos",
+    "title": "视频资源管理",
+    "sub": [
+      {
+        "link": "/videos/add",
+        "title": "添加视频"
+      },
+      {
+        "link": "/videos/list",
+        "title": "视频列表"
+      }
+    ]
+  },
+  "category": {
+    "icon": "bars",
+    "link": "/category",
+    "title": "教育分类管理"
+  },
+  "sms": {
+    "icon": "message",
+    "link": "/sms",
+    "title": "短信模版管理",
+    "sub": [
+      {
+        "link": "/sms/add",
+        "title": "添加模板"
+      },
+      {
+        "link": "/sms/list",
+        "title": "模板列表"
+      }
+    ]
+  },
+  "customers": {
+    "icon": "customer-service",
+    "link": "/customer",
+    "title": "客服服务"
+  }
+}

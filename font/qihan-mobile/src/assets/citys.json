@@ -1,0 +1,57 @@
+[
+	{
+		"label": "广州市", "value": "广州市",
+		"children": [
+			{
+				"label": "越秀区", "value": "越秀区"
+			},
+			{
+				"label": "海珠区", "value": "海珠区"
+			},
+			{
+				"label": "天河区", "value": "天河区"
+			},
+			{
+				"label": "白云区", "value": "白云区"
+			},
+			{
+				"label": "番禺区", "value": "番禺区"
+			},
+			{
+				"label": "增城市", "value": "增城市"
+			},
+			{
+				"label": "从化市", "value": "从化市"
+			}
+		]
+	},
+	{
+		"label": "韶关市", "value": "韶关市"
+	},
+	{
+		"label": "深圳市", "value": "深圳市"
+	},
+	{
+		"label": "汕头市", "value": "汕头市"
+	},
+	{
+		"label": "佛山市", "value": "佛山市",
+		"children": [
+			{
+				"label": "禅城区", "value": "禅城区"
+			},
+			{
+				"label": "南海区", "value": "南海区"
+			},
+			{
+				"label": "顺德区", "value": "顺德区"
+			},
+			{
+				"label": "高明区", "value": "高明区"
+			}
+		]
+	},
+	{
+		"label": "潮州市", "value": "潮州市"
+	}
+]
