@@ -1,8 +1,11 @@
 /**
  * Created by fangf on 2016/11/21.
+ * revised by ljz on2018/5/18.
+ * model
  */
 import * as api from '../services/exam';
 import {message} from 'antd';
+
 
 let status = {
   HAS_BEEN_CHECKIN:'已报考',

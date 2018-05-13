@@ -1,3 +1,7 @@
+/*
+* revised by ljz on 2018/05/08
+* component
+*/
 import React, {Component} from 'react';
 import {Input,Icon,Select,Popconfirm,Upload,message,Modal,Button} from 'antd';
 import styles from './StudentArchiveTable.less';
@@ -7,6 +11,7 @@ import imgUri from '../utils/imgUri';
 const Option = Select.Option;
 
 let colleges = require('../asset/guangdong.json');
+
 
 export default class StudentArchiveTable extends Component {
 
@@ -42,6 +47,7 @@ export default class StudentArchiveTable extends Component {
   render() {
     let {data,onChange} = this.props;
     let {field,previewVisible,rotate,type} = this.state;
+    //修改处
     let stu = data.student;
     let editable = !!onChange;
     let fields = {

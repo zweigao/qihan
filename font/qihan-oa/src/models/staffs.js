@@ -2,7 +2,9 @@
  * Created by fangf on 2016/12/21.
  */
 import * as api from '../services/staffs';
-import {message} from 'antd';
+import {
+  message
+} from 'antd';
 
 export default {
   namespace: 'staffs',
@@ -10,30 +12,109 @@ export default {
     data: [],
     achievement: []
   },
-  effects:{
-    *getList(action,{put,call}){
-      let {data} = yield call(api.getAll);
+  effects: {
+    * getList(action, {
+      put,
+      call
+    }) {
+      let {
+        data
+      } = yield call(api.getAll);
       if (data.code === 1) {
-        yield put({type:'setList',data:data.data})
+        yield put({
+          type: 'setList',
+          data: data.data
+        })
       }
     },
-    *add({name,mobile,idCard},{put,call}){
-      let {data} = yield call(api.add,name,mobile,idCard);
-      if (data.code==1)
-        yield put({type:'addSync',staff:{id:data.data,name,mobile,identityCardCode:idCard}})
+    * add({
+      name,
+      mobile,
+      idCard
+    }, {
+      put,
+      call
+    }) {
+      let {
+        data
+      } = yield call(api.add, name, mobile, idCard);
+      if (data.code == 1)
+        yield put({
+          type: 'addSync',
+          staff: {
+            id: data.data,
+            name,
+            mobile,
+            identityCardCode: idCard
+          }
+        })
     },
-    *upd({id,name,mobile,idCard,index},{put,call}){
-      let {data} = yield call(api.upd,id,name,mobile,idCard);
-      if (data.code==1)
-        yield put({type:'updSync',index,staff:{name,mobile,identityCardCode:idCard}})
+    * upd({
+      dividend,
+      id,
+      name,
+      mobile,
+      idCard,
+      index
+    }, {
+      put,
+      call
+    }) {
+      let {
+        data
+      } = yield call(api.upd, dividend, id, name, mobile, idCard);
+      if (data.code == 1)
+        yield put({
+          type: 'updSync',
+          index,
+          staff: {
+            name,
+            mobile,
+            identityCardCode: idCard
+          }
+        })
     },
-    *fetchAchievement ({ payload }, { put, call}) {
-      let { data } = yield call(api.getAchievement, payload.id)
+    * updd({
+      dividend,
+      id,
+      index
+    }, {
+      put,
+      call
+    }) {
+      let {
+        data
+      } = yield call(api.updd, dividend, id);
+      if (data.code == 1)
+        yield put({
+          type: 'upddSync',
+          index
+        });
+    },
+    * fetchAchievement({
+      payload
+    }, {
+      put,
+      call
+    }) {
+      let {
+        data
+      } = yield call(api.getAchievement, payload.id)
       if (data.code === 1) {
-        yield put({ type:'getAchievement', payload: { data: data.data || [] } })
+        yield put({
+          type: 'getAchievement',
+          payload: {
+            data: data.data || []
+          }
+        })
       }
     },
-    *exportAchievement({ids}, { put, call}){
+    * exportAchievement({
+      ids
+    }, {
+      put,
+      call
+    }) {
       let res = yield call(api.exportAchievement, ids);
       let filename = res.headers['filename'];
       if (filename) {
@@ -48,29 +129,62 @@ export default {
       }
     }
   },
-  reducers:{
-    setList(state, {data}){
-      return {...state, data}
+  reducers: {
+    setList(state, {
+      data
+    }) {
+      return { ...state,
+        data
+      }
     },
-    addSync(state, {staff}){
+    addSync(state, {
+      staff
+    }) {
       message.success('添加业务人员成功');
       if (state.data.length > 0)
         state.data.push(staff);
-      return {...state};
+      return { ...state
+      };
     },
-    updSync(state, {index,staff}){
+    updSync(state, {
+      index,
+      staff
+    }) {
       message.success('更新业务人员信息成功');
-      state.data[index] = {...state.data[index], ...staff};
-      return {...state};
+      state.data[index] = { ...state.data[index],
+        ...staff
+      };
+      return { ...state
+      };
     },
-    ban(state, {index}){
-      let {id,loginBandom} = state.data[index];
-      api.ban(id,!loginBandom);
+    upddSync(state, {
+      index
+    }) {
+      message.success('更新提成信息成功');
+      state.data[index] = { ...state.data[index]
+      };
+      return {
+        ...state
+      };
+    },
+    ban(state, {
+      index
+    }) {
+      let {
+        id,
+        loginBandom
+      } = state.data[index];
+      api.ban(id, !loginBandom);
       state.data[index].loginBandom = !loginBandom;
-      return {...state}
+      return { ...state
+      }
     },
-    getAchievement (state, { payload }) {
-      payload.data = payload.data.map((v,k)=>({...v, index: k}))
+    getAchievement(state, {
+      payload
+    }) {
+      payload.data = payload.data.map((v, k) => ({ ...v,
+        index: k
+      }))
       return {
         ...state,
         achievement: payload.data

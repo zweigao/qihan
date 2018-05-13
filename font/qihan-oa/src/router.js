@@ -36,6 +36,7 @@ import FinanceList from './routes/finance/FinanceList';
 import MarketAdd from './routes/market/MarketAdd';
 import MarketList from './routes/market/MarketList';
 
+
 function requireAuth({location}, replace) {
   if (location.pathname!='/login'&&!sessionStorage.tokenID)
     replace({pathname: '/login'})

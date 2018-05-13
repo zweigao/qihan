@@ -1,15 +1,30 @@
 import React from 'react';
-import {connect} from 'dva';
-import {Link} from 'dva/router';
-import { Table, Card, Icon, Popconfirm, Tag, Modal, Popover, Tooltip } from 'antd';
-import {AddForm} from './ManagerAdd';
+import {
+  connect
+} from 'dva';
+import {
+  Link
+} from 'dva/router';
+import {
+  Table,
+  Card,
+  Icon,
+  Popconfirm,
+  Tag,
+  Modal,
+  Popover,
+  Tooltip
+} from 'antd';
+import {
+  AddForm
+} from './ManagerAdd';
 
-class ManagerList extends React.Component{
+class ManagerList extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     props.dispatch({
-      type:'manager/getList',
+      type: 'manager/getList',
       tokenType: 'MANAGER'
     });
     this.state = {
@@ -20,14 +35,25 @@ class ManagerList extends React.Component{
   }
 
   showEdit = (index) => {
-    this.setState({visible:true,index});
+    this.setState({
+      visible: true,
+      index
+    });
   };
 
   saveEdit = (e) => {
     e.preventDefault();
-    let {dispatch,manager} = this.props;
-    let {index} = this.state;
-    let {id,activityFlag} = manager.data[index];
+    let {
+      dispatch,
+      manager
+    } = this.props;
+    let {
+      index
+    } = this.state;
+    let {
+      id,
+      activityFlag
+    } = manager.data[index];
     let form = this.refs['form'];
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -38,7 +64,9 @@ class ManagerList extends React.Component{
           index,
           ...values
         });
-        this.setState({visible:false});
+        this.setState({
+          visible: false
+        });
       }
     });
   };
@@ -56,10 +84,10 @@ class ManagerList extends React.Component{
     }, {
       title: '状态',
       dataIndex: 'activityFlag',
-      render: (v)=>(<Tag color={!v?'':'#87d068'}>{!v?'已禁用':'已启用'}</Tag>)
+      render: (v) => (<Tag color={!v?'':'#87d068'}>{!v?'已禁用':'已启用'}</Tag>)
     }, {
       title: '操作',
-      render: (v,r,i) =>
+      render: (v, r, i) =>
         <div>
           <Popconfirm title={(!r.activityFlag?'启用':'禁用')+"该账号？"} onConfirm={()=>this.props.dispatch({type:'manager/ban',index:i})} okText="确定" cancelText="取消">
             <Tooltip title={!r.activityFlag? '启用' : '禁用'}>{!r.activityFlag?<Icon type="check-circle-o" style={{color:'#87d068'}}/>:<Icon type="minus-circle-o" style={{color:'tomato'}} />}</Tooltip>
@@ -70,8 +98,12 @@ class ManagerList extends React.Component{
   };
 
   render() {
-    let {data} = this.props.manager;
-    let {index} = this.state;
+    let {
+      data
+    } = this.props.manager;
+    let {
+      index
+    } = this.state;
     return (
       <Card title="教务人员列表">
         <Table rowKey="id" columns={this.renderColumns()} dataSource={data} loading={this.props.loading}/>
@@ -87,4 +119,10 @@ class ManagerList extends React.Component{
 
 }
 
-export default connect(({manager,loading})=>({manager,loading: loading.global}))(ManagerList);
+export default connect(({
+  manager,
+  loading
+}) => ({
+  manager,
+  loading: loading.global
+}))(ManagerList);

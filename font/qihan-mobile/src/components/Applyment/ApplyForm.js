@@ -1,17 +1,39 @@
 import React from 'react';
-import { List, InputItem, Button, WhiteSpace, WingBlank, Popup, NavBar, Picker, ImagePicker, Toast, Modal, Result, Tag, Icon } from 'antd-mobile';
-import { createForm } from 'rc-form';
+import {
+  List,
+  InputItem,
+  Button,
+  WhiteSpace,
+  WingBlank,
+  Popup,
+  NavBar,
+  Picker,
+  ImagePicker,
+  Toast,
+  Modal,
+  Result,
+  Tag,
+  Icon
+} from 'antd-mobile';
+import {
+  createForm
+} from 'rc-form';
 import MenuList from './MenuList'
 import SchoolList from './SchoolList'
 import styles from './ApplyForm.less'
-import {connect} from 'dva';
+import {
+  connect
+} from 'dva';
 import imgUri from '../../utils/imgUri'
 
 const Item = List.Item
 const Brief = Item.Brief
 const schools = require('../../assets/guangdong.json')
 const citys = require('../../assets/citys.json')
-const { alert, prompt } = Modal;
+const {
+  alert,
+  prompt
+} = Modal;
 
 const imagesEnum = {
   STANDERIMG: 'standarImgFiles',
@@ -22,7 +44,7 @@ const imagesEnum = {
 
 class ApplyForm extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -45,14 +67,14 @@ class ApplyForm extends React.Component {
     this.onDisplayItemClick = this.onDisplayItemClick.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const query = this.props.location.query
     if (query.type === 'modify') {
       this.showICDialog()
     }
   }
-  
-  showICDialog () {
+
+  showICDialog() {
     const callback = (code) => {
       if (/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(code)) {
         this.props.getApplymentInfo(this.props.location.query.registerid, code)
@@ -63,17 +85,21 @@ class ApplyForm extends React.Component {
     }
     prompt(
       '修改报名信息',
-      '请输入身份证确认身份',
-      [
-        { text: '取消', onPress: () => this.showICDialog() },
-        { text: '提交', onPress: callback },
-      ],
+      '请输入身份证确认身份', [{
+        text: '取消',
+        onPress: () => this.showICDialog()
+      }, {
+        text: '提交',
+        onPress: callback
+      }, ],
       'plain-text'
     )
   }
 
-  componentWillReceiveProps (nextProps) {
-    const { applyment } = nextProps
+  componentWillReceiveProps(nextProps) {
+    const {
+      applyment
+    } = nextProps
     if (applyment.idCardInfo !== this.props.applyment.idCardInfo) {
       this.props.form.setFieldsValue({
         gender: [applyment.idCardInfo.gender],
@@ -89,10 +115,22 @@ class ApplyForm extends React.Component {
     const applymentInfo = applyment.applymentInfo
     if (applymentInfo !== this.props.applyment.applymentInfo) {
       this.setState({
-        standarImgFiles: applymentInfo.standerImg? [{url: imgUri(applymentInfo.standerImg), id: '0001'}] : [],
-        idCardImgFiles: applymentInfo.studentInfo.identityCardImg? [{url: imgUri(applymentInfo.studentInfo.identityCardImg), id: '0002'}] : [],
-        idCardImgBackFiles: applymentInfo.studentInfo.identityCardBackImg? [{url: imgUri(applymentInfo.studentInfo.identityCardBackImg), id: '0003'}] : [],
-        studentImgFiles: applymentInfo.studentInfo.studentCardImg? [{url: imgUri(applymentInfo.studentInfo.studentCardImg), id: '0004'}] : []
+        standarImgFiles: applymentInfo.standerImg ? [{
+          url: imgUri(applymentInfo.standerImg),
+          id: '0001'
+        }] : [],
+        idCardImgFiles: applymentInfo.studentInfo.identityCardImg ? [{
+          url: imgUri(applymentInfo.studentInfo.identityCardImg),
+          id: '0002'
+        }] : [],
+        idCardImgBackFiles: applymentInfo.studentInfo.identityCardBackImg ? [{
+          url: imgUri(applymentInfo.studentInfo.identityCardBackImg),
+          id: '0003'
+        }] : [],
+        studentImgFiles: applymentInfo.studentInfo.studentCardImg ? [{
+          url: imgUri(applymentInfo.studentInfo.studentCardImg),
+          id: '0004'
+        }] : []
       })
       this.props.form.setFieldsValue({
         registerItem: applymentInfo.registerItem,
@@ -115,7 +153,7 @@ class ApplyForm extends React.Component {
     }
   }
 
-  submit () {
+  submit() {
     this.props.form.validateFields((error, value) => {
       console.log(value)
       if (!error) {
@@ -134,7 +172,9 @@ class ApplyForm extends React.Component {
           sex: value.gender[0],
           nation: value.nation
         }
-        const { applymentInfo } = this.props.applyment
+        const {
+          applymentInfo
+        } = this.props.applyment
         if (applymentInfo && applymentInfo.registerItem) {
           studentInfo.id = applymentInfo.studentInfo.id
           this.props.updateRegisterInfo({
@@ -142,7 +182,9 @@ class ApplyForm extends React.Component {
               student: studentInfo,
               examArea: value.examArea && value.examArea.join(' '),
               id: this.props.location.query.registerid,
-              registerItemInfo: { id: this.props.applyment.applymentInfo.registerActivityTimer.id },
+              registerItemInfo: {
+                id: this.props.applyment.applymentInfo.registerActivityTimer.id
+              },
               userStanderImg: value.standarImg
             },
             validata: value.smsValidator
@@ -164,21 +206,27 @@ class ApplyForm extends React.Component {
     })
   }
 
-  showPopup (component) {
+  showPopup(component) {
     Popup.show(
       <div className={styles.popup}>
         {component}
-      </div>, { animationType: 'slide-up', maskClosable: false, prefixCls: 'menu' })
+      </div>, {
+        animationType: 'slide-up',
+        maskClosable: false,
+        prefixCls: 'menu'
+      })
   }
 
-  showForbAlert () {
-    alert('该项目不能修改，请重新报名', '确定重新报名吗', [
-      { text: '取消'},
-      { text: '确定', onPress: () => location.href = `${location.origin}${location.pathname}?staff=${this.props.location.query.staff}` }
-    ])
+  showForbAlert() {
+    alert('该项目不能修改，请重新报名', '确定重新报名吗', [{
+      text: '取消'
+    }, {
+      text: '确定',
+      onPress: () => location.href = `${location.origin}${location.pathname}?staff=${this.props.location.query.staff}`
+    }])
   }
 
-  showMenus () {
+  showMenus() {
     const that = this
     const { applymentInfo } = this.props.applyment
     console.log(that.props.applyment.menuData)
@@ -189,12 +237,14 @@ class ApplyForm extends React.Component {
     if (that.props.applyment.menuData.length > 0) {
       const props = {
         menuData: this.props.applyment.menuData,
-        onCourseClick (course) {
+        onCourseClick(course) {
           Popup.hide()
-          that.props.form.setFieldsValue({ registerItem: course })
+          that.props.form.setFieldsValue({
+            registerItem: course
+          })
           that.props.getDisplayItems(course.id)
         },
-        hiddenPopup () {
+        hiddenPopup() {
           Popup.hide()
         }
       }
@@ -204,15 +254,17 @@ class ApplyForm extends React.Component {
     }
   }
 
-  showSchool () {
+  showSchool() {
     const that = this
     const props = {
       schools,
-      hiddenPopup () {
+      hiddenPopup() {
         Popup.hide()
       },
-      onSchoolClick (s) {
-        that.props.form.setFieldsValue({schoolName: s})
+      onSchoolClick(s) {
+        that.props.form.setFieldsValue({
+          schoolName: s
+        })
         Popup.hide()
       }
     }
@@ -221,9 +273,13 @@ class ApplyForm extends React.Component {
     )
   }
 
-  onCardCodeChange (value) {
-    const { form } = this.props
-    form.setFieldsValue({ identityCardCode: value })
+  onCardCodeChange(value) {
+    const {
+      form
+    } = this.props
+    form.setFieldsValue({
+      identityCardCode: value
+    })
     form.validateFields(['identityCardCode'], (err, value) => {
       if (!err) {
         this.props.getIdCardInfo(value.identityCardCode)
@@ -231,8 +287,10 @@ class ApplyForm extends React.Component {
     })
   }
 
-  onImageChange (files, type, index, imgType) {
-    const { uploadImgLoading } = this.props.applyment
+  onImageChange(files, type, index, imgType) {
+    const {
+      uploadImgLoading
+    } = this.props.applyment
     console.log(files, type)
     if (type === 'add') {
       if (uploadImgLoading) {
@@ -250,7 +308,7 @@ class ApplyForm extends React.Component {
     })
   }
 
-  checkPhone (rule, value, callback) {
+  checkPhone(rule, value, callback) {
     const form = this.props.form
     if (value && !(/0?(13|14|15|16|17|18|19)[0-9]{9}/.test(value.replace(/\s+/g, '')))) {
       callback('手机号码格式有误')
@@ -259,7 +317,7 @@ class ApplyForm extends React.Component {
     }
   }
 
-  checkIdCard (rule, value, callback) {
+  checkIdCard(rule, value, callback) {
     const form = this.props.form
     if (value && !(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value))) {
       callback('身份证号码格式有误')
@@ -268,14 +326,18 @@ class ApplyForm extends React.Component {
     }
   }
 
-  getPhoneCodeValidator () {
+  getPhoneCodeValidator() {
     if (this.state.getCodeTimer > 0) {
       return
     }
-    const { form } = this.props
+    const {
+      form
+    } = this.props
     form.validateFields(['mobile'], (errors, values) => {
       if (!errors) {
-        const { applymentInfo } = this.props.applyment
+        const {
+          applymentInfo
+        } = this.props.applyment
         if (applymentInfo && applymentInfo.registerItem) {
           this.props.getPhoneCodeValidatorForModify(values.mobile.replace(/\s+/g, ''))
         } else {
@@ -300,8 +362,10 @@ class ApplyForm extends React.Component {
     })
   }
 
-  onDisplayItemClick (show) {
-    const { applymentInfo } = this.props.applyment
+  onDisplayItemClick(show) {
+    const {
+      applymentInfo
+    } = this.props.applyment
     if (applymentInfo && applymentInfo.registerItem) {
       this.showForbAlert()
       return
@@ -312,11 +376,18 @@ class ApplyForm extends React.Component {
     })
   }
 
+  render() {
+    const {
+      getFieldProps,
+      getFieldError,
+      getFieldValue
+    } = this.props.form
+    const {
+      meterialNeed,
+      finished,
+      applymentInfo
+    } = this.props.applyment
 
-  render () {
-    const { getFieldProps, getFieldError, getFieldValue } = this.props.form
-    const { meterialNeed, finished, applymentInfo } = this.props.applyment
-    
     return (
       <div>
       {applymentInfo && applymentInfo.unPassReason ?
@@ -325,13 +396,14 @@ class ApplyForm extends React.Component {
           <Tag closable><Icon style={{color: '#ff3b30'}} type="exclamation-circle" /> {'驳回理由：' + applymentInfo.unPassReason}</Tag>
         </WingBlank> : null
       }
+
       <List renderHeader={() => '报名资料'}>
         <Item extra={getFieldValue('registerItem') && getFieldValue('registerItem').name || '点击选择报考科目'} wrap key={'menu'} arrow="horizontal" onClick={this.showMenus}>{'报考科目'}</Item>
         <Picker data={this.props.applyment.registerDisplayItems} cols={1} visible={this.state.displayPickerVisible} onDismiss={() => this.onDisplayItemClick(false)} {...getFieldProps('displayItem', {
-          rules: [{ required: true, type: 'array', message: '考试项目不能为空' }],
-          onChange: () => this.onDisplayItemClick(false)
-        })}>
-          <Item arrow="horizontal" className={styles.require} onClick={() => this.onDisplayItemClick(true)}>考试项目</Item>
+            rules: [{ required: true, type: 'array', message: '考试项目不能为空' }],
+            onChange: () => this.onDisplayItemClick(false)
+          })}>
+            <Item arrow="horizontal" className={styles.require} onClick={() => this.onDisplayItemClick(true)}>考试项目</Item>
         </Picker>
         {meterialNeed.id !== undefined ?
           <Picker data={citys} cols={2} {...getFieldProps('examArea', {
@@ -360,7 +432,7 @@ class ApplyForm extends React.Component {
         }
       </List>
       <WhiteSpace/>
-      { meterialNeed.id !== undefined ?
+    { meterialNeed.id !== undefined ? 
       <List renderHeader={() => '个人资料'}>
         <InputItem
           {...getFieldProps('name', {
@@ -384,7 +456,8 @@ class ApplyForm extends React.Component {
           error={getFieldError('mobile')}>
           手机号码
         </InputItem>
-        <InputItem
+
+       {/*<InputItem
           {...getFieldProps('smsValidator', {
             rules: [{ required: true, message: '手机验证码不能为空' }]
           })}
@@ -398,7 +471,8 @@ class ApplyForm extends React.Component {
           clear={true}
           error={getFieldError('smsValidator')}>
           验证码
-        </InputItem>
+        </InputItem>*/}
+
         <InputItem
           {...getFieldProps('identityCardCode', {
             rules: [{ required: true, message: '身份证号码不能为空' }, { validator: this.checkIdCard.bind(this) }],

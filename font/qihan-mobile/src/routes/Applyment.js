@@ -1,35 +1,88 @@
 import React from 'react';
-import {connect} from 'dva';
-import { Card, WhiteSpace, Icon, List } from 'antd-mobile';
+import {
+  connect
+} from 'dva';
+import {
+  Card,
+  WhiteSpace,
+  Icon,
+  List
+} from 'antd-mobile';
 import ApplyForm from '../components/Applyment/ApplyForm'
 
-function Applyment({ dispatch, applyment, location }) {
+function Applyment({
+  dispatch,
+  applyment,
+  location
+}) {
   const formProps = {
     applyment,
     location,
-    getIdCardInfo (idCard) {
-      dispatch({ type: 'applyment/fetchIdCardInfo', payload: { idCard }})
+    getIdCardInfo(idCard) {
+      dispatch({
+        type: 'applyment/fetchIdCardInfo',
+        payload: {
+          idCard
+        }
+      })
     },
-    getDisplayItems (id) {
-      dispatch({ type: 'applyment/fetchDisplayItems', payload: { id }})
+    getDisplayItems(id) {
+      dispatch({
+        type: 'applyment/fetchDisplayItems',
+        payload: {
+          id
+        }
+      })
     },
-    uploadImage (type, image) {
-      dispatch({ type: 'applyment/uploadImage', payload: { type, image }})
+    uploadImage(type, image) {
+      dispatch({
+        type: 'applyment/uploadImage',
+        payload: {
+          type,
+          image
+        }
+      })
     },
-    register (data) {
-      dispatch({ type: 'applyment/register', payload: { data } })
+    register(data) {
+      dispatch({
+        type: 'applyment/register',
+        payload: {
+          data
+        }
+      })
     },
-    getPhoneCodeValidator (phoneCode) {
-      dispatch({ type: 'applyment/fetchPhoneCodeValidator', payload: { phoneCode }})
+    getPhoneCodeValidator(phoneCode) {
+      dispatch({
+        type: 'applyment/fetchPhoneCodeValidator',
+        payload: {
+          phoneCode
+        }
+      })
     },
-    getPhoneCodeValidatorForModify (phoneCode) {
-      dispatch({ type: 'applyment/fetchPhoneCodeValidatorForModify', payload: { phoneCode }})
+    getPhoneCodeValidatorForModify(phoneCode) {
+      dispatch({
+        type: 'applyment/fetchPhoneCodeValidatorForModify',
+        payload: {
+          phoneCode
+        }
+      })
     },
-    getApplymentInfo (registerId, idCode) {
-      dispatch({ type: 'applyment/fetchApplymentInfo', payload: { registerId, idCode }})
+    getApplymentInfo(registerId, idCode) {
+      dispatch({
+        type: 'applyment/fetchApplymentInfo',
+        payload: {
+          registerId,
+          idCode
+        }
+      })
     },
-    updateRegisterInfo (data) {
-      dispatch({ type: 'applyment/updateRegisterInfo', payload: { data }})
+    updateRegisterInfo(data) {
+      dispatch({
+        type: 'applyment/updateRegisterInfo',
+        payload: {
+          data
+        }
+      })
     }
   }
   return (
@@ -39,4 +92,8 @@ function Applyment({ dispatch, applyment, location }) {
   );
 }
 
-export default connect(({ applyment }) => ({ applyment }))(Applyment);
+export default connect(({
+  applyment
+}) => ({
+  applyment
+}))(Applyment);
