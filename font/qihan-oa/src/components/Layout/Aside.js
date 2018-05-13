@@ -26,6 +26,7 @@ const Aside = React.createClass({
 
   gotoLink(item) {
     let key = item.key.split('-');
+    console.log(key)
     let link;
     let links = this.links;
     let bread = [];

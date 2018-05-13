@@ -8,5 +8,10 @@
     "icon": "area-chart",
     "link": "/staffs/achievement",
     "title": "业绩记录"
+  },
+  "studentMessage": {
+    "icon": "user",
+    "link": "/studentMessage/applymentNew",
+    "title": "学员资料"
   }
 }

@@ -9,8 +9,6 @@ let paymentWay = {
   WECHAT:'微信转账',
   ALIPAY:'支付宝转账',
   BANK_TRANSFER:'银行转账',
-  CASH:'现金支付',
-  COOPERATE_WITH_SCHOOLS: '合作院校转帐'
 };
 let status = {
   WAIT_FOR_CHECK:'等待审核',
@@ -59,6 +57,11 @@ export default {
     },
     *pay({id,payWay,amount,payCode,index},{put,call}){
       let {data} = yield call(api.pay,id,payWay,amount,payCode);
+      if (data.code==1)
+        yield put({type:'payAsync',payWay,amount,payCode,index})
+    },
+    *paySecond({id,payWay,amount,payCode,index},{put,call}){
+      let {data} = yield call(api.paySecond,id,payWay,amount,payCode);
       if (data.code==1)
         yield put({type:'payAsync',payWay,amount,payCode,index})
     },

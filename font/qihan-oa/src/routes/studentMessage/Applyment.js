@@ -26,9 +26,11 @@ class Applyment extends React.Component{
     if (props.applyment.data.length==0)
       props.dispatch({
         type:'applyment/getAll'
+        // type:'applyment/getMessage'
       });
     /*if (props.category.data.length==0)
      props.dispatch({type:'category/getList'});*/
+    console.log(props.applyment.data)
     this.state = {
       currentId: 0,
       filter: '',
@@ -126,21 +128,18 @@ class Applyment extends React.Component{
   }
 
   handlePayment = () => {
-    console.log(11111);
     let form = this.refs['form'];
     let {dispatch,applyment} = this.props;
     let index = this.state.currentId;
     let id = applyment.data[index].id;
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log(22222);
         dispatch({
-          type:'applyment/paySecond',
+          type:'applyment/pay',
           id,
           index,
           ...values
         });
-        console.log(333333);
         this.setState({visible2:false})
       }
     });
@@ -331,8 +330,8 @@ class Applyment extends React.Component{
           {text: '微信转账', value: '微信转账'},
           {text: '支付宝转账', value: '支付宝转账'},
           {text: '银行转账', value: '银行转账'},
-          // {text: '现金支付', value: '现金支付'},
-          // {text: '合作院校转帐', value: '合作院校转帐'}
+          {text: '现金支付', value: '现金支付'},
+          {text: '合作院校转帐', value: '合作院校转帐'}
         ],
         render: v=><Tag>{v||'未支付'}</Tag>,
         onFilter: (value, record) => record.payWay == value

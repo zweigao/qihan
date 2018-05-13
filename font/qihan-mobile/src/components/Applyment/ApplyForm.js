@@ -228,9 +228,8 @@ class ApplyForm extends React.Component {
 
   showMenus() {
     const that = this
-    const {
-      applymentInfo
-    } = this.props.applyment
+    const { applymentInfo } = this.props.applyment
+    console.log(that.props.applyment.menuData)
     if (applymentInfo && applymentInfo.registerItem) {
       this.showForbAlert()
       return
