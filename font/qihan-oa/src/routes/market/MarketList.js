@@ -1,15 +1,30 @@
 import React from 'react';
-import {connect} from 'dva';
-import {Link} from 'dva/router';
-import { Table, Card, Icon, Popconfirm, Tag, Modal, Popover, Tooltip } from 'antd';
-import {AddForm} from './MarketAdd';
+import {
+  connect
+} from 'dva';
+import {
+  Link
+} from 'dva/router';
+import {
+  Table,
+  Card,
+  Icon,
+  Popconfirm,
+  Tag,
+  Modal,
+  Popover,
+  Tooltip
+} from 'antd';
+import {
+  AddForm
+} from './MarketAdd';
 
-class MarketList extends React.Component{
+class MarketList extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     props.dispatch({
-      type:'manager/getList',
+      type: 'manager/getList',
       tokenType: 'MARKET'
     });
     this.state = {
@@ -20,14 +35,25 @@ class MarketList extends React.Component{
   }
 
   showEdit = (index) => {
-    this.setState({visible:true,index});
+    this.setState({
+      visible: true,
+      index
+    });
   };
 
   saveEdit = (e) => {
     e.preventDefault();
-    let {dispatch,manager} = this.props;
-    let {index} = this.state;
-    let {id,activityFlag} = manager.data[index];
+    let {
+      dispatch,
+      manager
+    } = this.props;
+    let {
+      index
+    } = this.state;
+    let {
+      id,
+      activityFlag
+    } = manager.data[index];
     let form = this.refs['form'];
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -38,7 +64,9 @@ class MarketList extends React.Component{
           index,
           ...values
         });
-        this.setState({visible:false});
+        this.setState({
+          visible: false
+        });
       }
     });
   };
@@ -56,22 +84,27 @@ class MarketList extends React.Component{
     }, {
       title: '状态',
       dataIndex: 'activityFlag',
-      render: (v)=>(<Tag color={!v?'':'#87d068'}>{!v?'已禁用':'已启用'}</Tag>)
+      render: (v) => (<Tag color={!v?'':'#87d068'}>{!v?'已禁用':'已启用'}</Tag>)
     }, {
       title: '操作',
-      render: (v,r,i) =>
+      render: (v, r, i) =>
         <div>
           <Popconfirm title={(!r.activityFlag?'启用':'禁用')+"该账号？"} onConfirm={()=>this.props.dispatch({type:'manager/ban',index:i})} okText="确定" cancelText="取消">
             <Tooltip title={!r.activityFlag? '启用' : '禁用'}>{!r.activityFlag?<Icon type="check-circle-o" style={{color:'#87d068'}}/>:<Icon type="minus-circle-o" style={{color:'tomato'}} />}</Tooltip>
-          </Popconfirm>　
+          </Popconfirm>
           <Tooltip title="编辑"><Icon type="edit" style={{color:'cadetblue'}} onClick={()=>this.showEdit(i)}/></Tooltip>
+         
         </div>
     }];
   };
 
   render() {
-    let {data} = this.props.manager;
-    let {index} = this.state;
+    let {
+      data
+    } = this.props.manager;
+    let {
+      index
+    } = this.state;
     return (
       <Card title="市场人员列表">
         <Table rowKey="id" columns={this.renderColumns()} dataSource={data} loading={this.props.loading}/>
@@ -87,4 +120,10 @@ class MarketList extends React.Component{
 
 }
 
-export default connect(({manager,loading})=>({manager,loading: loading.global}))(MarketList);
+export default connect(({
+  manager,
+  loading
+}) => ({
+  manager,
+  loading: loading.global
+}))(MarketList);
