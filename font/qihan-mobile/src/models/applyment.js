@@ -1,5 +1,7 @@
 import * as api from '../services/applyment'
-import { Toast } from 'antd-mobile';
+import {
+  Toast
+} from 'antd-mobile';
 
 const imagesEnum = {
   STANDERIMG: 'standarImg',
@@ -32,111 +34,257 @@ export default {
   },
 
   subscriptions: {
-    setup({ dispatch, history }) {
-      history.listen(({ pathname }) => {
+    setup({
+      dispatch,
+      history
+    }) {
+      history.listen(({
+        pathname
+      }) => {
         if (pathname.indexOf('/applyment') >= 0) {
-          dispatch({ type: 'fetchMenu' })
+          dispatch({
+            type: 'fetchMenu'
+          })
         }
       })
     },
   },
 
   effects: {
-    *fetchMenu ({ payload }, { select, call, put }) {
-      const  { data } = yield call(() => api.getMenu())
+    * fetchMenu({
+      payload
+    }, {
+      select,
+      call,
+      put
+    }) {
+      const {
+        data
+      } = yield call(() => api.getMenu())
       if (data.code === 1) {
         let menuData = getTree(data.data, 0, 1)
-        yield put({ type: 'getMenu', payload: { menuData } })
+        yield put({
+          type: 'getMenu',
+          payload: {
+            menuData
+          }
+        })
       }
     },
-    *fetchIdCardInfo ({ payload }, { select, call, put }) {
-      const { data } = yield call(() => api.getIdCardInfo(payload.idCard))
+    * fetchIdCardInfo({
+      payload
+    }, {
+      select,
+      call,
+      put
+    }) {
+      const {
+        data
+      } = yield call(() => api.getIdCardInfo(payload.idCard))
       if (data.code === 1) {
-        yield put({ type: 'getIdCardInfo', payload: {info: data.data}} )
+        yield put({
+          type: 'getIdCardInfo',
+          payload: {
+            info: data.data
+          }
+        })
       }
     },
-    *fetchDisplayItems ({ payload }, { select, call, put }) {
-      const { data } = yield call(() => api.getMenuItemRegisterInfo(payload.id))
+    * fetchDisplayItems({
+      payload
+    }, {
+      select,
+      call,
+      put
+    }) {
+      const {
+        data
+      } = yield call(() => api.getMenuItemRegisterInfo(payload.id))
       const items = data.data.registerTimingOptionServiceList.filter((o) => {
         return o.optionActivityTimestamp > +new Date()
       })
       if (data.code === 1) {
-        yield put({ type: 'getDisplayItems', payload: {
-          items,
-          meterialNeed: data.data.materialForExam
-        }} )
+        yield put({
+          type: 'getDisplayItems',
+          payload: {
+            items,
+            meterialNeed: data.data.materialForExam
+          }
+        })
       }
     },
-    *uploadImage ({ payload }, { select, call, put }) {
-      yield put({ type: 'setUploadLoading', payload: { loading: true } })
+    * uploadImage({
+      payload
+    }, {
+      select,
+      call,
+      put
+    }) {
+      yield put({
+        type: 'setUploadLoading',
+        payload: {
+          loading: true
+        }
+      })
       if (payload.image) {
-        const { data } = yield call(() => api.fileUpload(payload.image, payload.type))
-        yield put({ type: 'setUploadLoading', payload: { loading: false } })
+        const {
+          data
+        } = yield call(() => api.fileUpload(payload.image, payload.type))
+        yield put({
+          type: 'setUploadLoading',
+          payload: {
+            loading: false
+          }
+        })
         if (data.code === 1) {
-          yield put({ type: 'getImages', payload: {type: payload.type, image: data.data}} )
+          yield put({
+            type: 'getImages',
+            payload: {
+              type: payload.type,
+              image: data.data
+            }
+          })
         }
       } else {
-        yield put({ type: 'getImages', payload: {type: payload.type, image: ''}} )
+        yield put({
+          type: 'getImages',
+          payload: {
+            type: payload.type,
+            image: ''
+          }
+        })
       }
-      
+
     },
-    *register ({ payload }, { select, call, put }) {
-      const { data } = yield call(() => api.register(payload.data))
+    * register({
+      payload
+    }, {
+      select,
+      call,
+      put
+    }) {
+      const {
+        data
+      } = yield call(() => api.register(payload.data))
       if (data.code === 1) {
-        yield put({ type: 'applySuccess' } )
+        yield put({
+          type: 'applySuccess'
+        })
       }
     },
-    *fetchPhoneCodeValidator ({ payload }, { select, call, put }) {
-      const { data } = yield call(() => api.getPhoneCodeValidator(payload.phoneCode))
+    * fetchPhoneCodeValidator({
+      payload
+    }, {
+      select,
+      call,
+      put
+    }) {
+      const {
+        data
+      } = yield call(() => api.getPhoneCodeValidator(payload.phoneCode))
       if (data.code === 1) {
         Toast.info("发送成功")
       }
     },
-    *fetchPhoneCodeValidatorForModify ({ payload }, { select, call, put }) {
-      const { data } = yield call(() => api.getPhoneCodeValidatorForModify(payload.phoneCode))
+    * fetchPhoneCodeValidatorForModify({
+      payload
+    }, {
+      select,
+      call,
+      put
+    }) {
+      const {
+        data
+      } = yield call(() => api.getPhoneCodeValidatorForModify(payload.phoneCode))
       if (data.code === 1) {
         Toast.info("发送成功")
       }
     },
-    *fetchApplymentInfo ({ payload }, { select, call, put }) {
-      const { data } = yield call(() => api.getApplymentInfo(payload.registerId, payload.idCode))
+    * fetchApplymentInfo({
+      payload
+    }, {
+      select,
+      call,
+      put
+    }) {
+      const {
+        data
+      } = yield call(() => api.getApplymentInfo(payload.registerId, payload.idCode))
       if (data.code === 1) {
-        yield put({ type: 'getApplymentInfo', payload: { applymentInfo: data.data }} )
+        yield put({
+          type: 'getApplymentInfo',
+          payload: {
+            applymentInfo: data.data
+          }
+        })
       }
     },
-    *updateRegisterInfo ({ payload }, { select, call, put }) {
-      const { data } = yield call(() => api.updateRegisterInfo(payload.data))
+    * updateRegisterInfo({
+      payload
+    }, {
+      select,
+      call,
+      put
+    }) {
+      const {
+        data
+      } = yield call(() => api.updateRegisterInfo(payload.data))
       if (data.code === 1) {
-        yield put({ type: 'applySuccess' } )
+        yield put({
+          type: 'applySuccess'
+        })
       }
     }
   },
 
   reducers: {
-    getMenu (state, action) {
-      return { ...state, menuData: action.payload.menuData }
+    getMenu(state, action) {
+      return { ...state,
+        menuData: action.payload.menuData
+      }
     },
-    getIdCardInfo (state, action) {
-      return { ...state, idCardInfo: action.payload.info || state.idCardInfo }
+    getIdCardInfo(state, action) {
+      return { ...state,
+        idCardInfo: action.payload.info || state.idCardInfo
+      }
     },
-    getDisplayItems (state, action) {
-      const items = action.payload.items.map(i => ({ label: i.displayContent, value: i.id }))
-      return { ...state, registerDisplayItems: items, meterialNeed: action.payload.meterialNeed }
+    getDisplayItems(state, action) {
+      const items = action.payload.items.map(i => ({
+        label: i.displayContent,
+        value: i.id
+      }))
+      return { ...state,
+        registerDisplayItems: items,
+        meterialNeed: action.payload.meterialNeed
+      }
     },
-    setUploadLoading (state, action) {
-      return { ...state, uploadImgLoading: action.payload.loading }
+    setUploadLoading(state, action) {
+      return { ...state,
+        uploadImgLoading: action.payload.loading
+      }
     },
-    getImages (state, action) {
+    getImages(state, action) {
       let images = state.images
       images[imagesEnum[action.payload.type]] = action.payload.image
-      return { ...state, images: {...images}, uploadImgLoading: false }
+      return { ...state,
+        images: { ...images
+        },
+        uploadImgLoading: false
+      }
     },
-    applySuccess (state, action) {
-      return { ...state, finished: true }
+    applySuccess(state, action) {
+      return { ...state,
+        finished: true
+      }
     },
-    getApplymentInfo (state, action) {
-      const { applymentInfo } = action.payload
-      const items = applymentInfo.allowTimingOption.map(i => ({ label: i.displayContent, value: i.id }))
+    getApplymentInfo(state, action) {
+      const {
+        applymentInfo
+      } = action.payload
+      const items = applymentInfo.allowTimingOption.map(i => ({
+        label: i.displayContent,
+        value: i.id
+      }))
       const images = {
         standarImg: applymentInfo.standerImg,
         idCardImg: applymentInfo.studentInfo.identityCardImg,
@@ -154,12 +302,12 @@ export default {
   }
 }
 
-function getTree (data, id, level) {
+function getTree(data, id, level) {
   let treeData = [];
-  for (let v of data){
-    if (v.fatherItem !== undefined && v.fatherItem === id && !v.hiddenFlag){
+  for (let v of data) {
+    if (v.fatherItem !== undefined && v.fatherItem === id && !v.hiddenFlag) {
       v.level = level;
-      v.children = getTree(data,v.id,level+1);
+      v.children = getTree(data, v.id, level + 1);
       treeData.push(v);
     }
   }
