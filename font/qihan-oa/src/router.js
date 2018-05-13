@@ -3,11 +3,14 @@ import { Router, Route, IndexRoute, Link } from 'dva/router';
 import Container from './routes/Container';
 import LoginPage from './routes/LoginPage';
 import IndexPage from './routes/IndexPage';
+
 import Notify from './routes/students/Notify';
 import Applyment from './routes/students/Applyment';
 import Logistics from './routes/students/Logistics';
 import StudentsList from './routes/students/StudentsList';
 import EnterExam from './routes/students/EnterExam';
+
+import ApplymentNew from './routes/studentMessage/Applyment';
 /*import Form from './routes/component/Form';
 import Table from './routes/component/Table';
 import Tree from './routes/component/Tree';
@@ -45,6 +48,7 @@ export default function({ history }) {
       <Route path="/" component={Container} onEnter={requireAuth}>
         <IndexRoute component={IndexPage} />
         <Route path="dashboard" component={IndexPage} />
+
         <Route path="students">
           <Route path="notify" component={Notify} />
           <Route path="applyment" component={Applyment} />
@@ -52,6 +56,11 @@ export default function({ history }) {
           <Route path="list" component={StudentsList} />
           <Route path="enter-exam" component={EnterExam} />
         </Route>
+
+        <Route path="studentMessage">
+          <Route path="ApplymentNew" component={ApplymentNew} />
+        </Route>
+
         <Route path="questions">
           <Route path="add" component={QuestionAdd}/>
           <Route path="list" component={QuestionList}/>

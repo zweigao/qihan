@@ -50,7 +50,7 @@ class Container extends React.Component {
       <div className={styles.container}>
         <NavBar leftContent={isHome || pathname === '/login' || pathname === '/applyment'? '' : '返回'}
           mode="light"
-          onLeftClick={this.props.global.onLeftClick || (() => !isHome && browserHistory.goBack())}
+          onLeftClick={this.props.global.onLeftClick || (() => !isHome &&location.reload())}
           rightContent={null}>
           {this.props.global.title || '启翰教育'}
         </NavBar>

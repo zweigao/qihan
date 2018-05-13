@@ -181,6 +181,7 @@ class ApplyForm extends React.Component {
   showMenus () {
     const that = this
     const { applymentInfo } = this.props.applyment
+    console.log(that.props.applyment.menuData)
     if (applymentInfo && applymentInfo.registerItem) {
       this.showForbAlert()
       return
@@ -310,6 +311,7 @@ class ApplyForm extends React.Component {
       displayPickerVisible: show
     })
   }
+
 
   render () {
     const { getFieldProps, getFieldError, getFieldValue } = this.props.form
@@ -466,12 +468,12 @@ class ApplyForm extends React.Component {
         </InputItem>
         <InputItem
           {...getFieldProps('address', {
-            rules: [meterialNeed.addressNeedFlag ? { required: true, message: '联系地址不能为空' } : {}]
+            rules: [meterialNeed.addressNeedFlag ? { required: true, message: '邮寄地址不能为空' } : {}]
           })}
           className={meterialNeed.addressNeedFlag ? styles.require : ''}
-          placeholder="联系地址"
+          placeholder="邮寄地址"
           clear={true}>
-          联系地址
+          邮寄地址
         </InputItem>
         {meterialNeed.idCardImgNeedFlag ?
           <Item

@@ -51,11 +51,18 @@ const LoginForm = Form.create()(React.createClass({
             message.success('登录成功')
             sessionStorage.setItem('tokenID', resp.data.data.tokenId)
             sessionStorage.setItem('tokenType', resp.data.data.token_type)
+            // sessionStorage.setItem('tokenType', "FINANCE")
             sessionStorage.setItem('username', resp.data.data.name)
             sessionStorage.setItem('id', resp.data.data.id)
+             // sessionStorage.setItem('username',"财务")
+             // sessionStorage.setItem('id', "2")
+            //跳转路由  
+            // if(resp.data.data.token_type=="SALEMAN"){
+            //    this.context.router.push( '/')
+            // }  
             const nextPath = sessionStorage.getItem('nextPath')
             this.context.router.push(nextPath&&nextPath!='/login' || '/')
-            sessionStorage.removeItem('nextPath')
+            sessionStorage.removeItem('nextPath')      
           }
         }).catch((err) => {
           this.setState({ loading : false })

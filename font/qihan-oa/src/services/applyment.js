@@ -21,6 +21,12 @@ export function setMultipleStatus(registerActivityTimerIds,checkResult,unPassRea
 }
 
 export function pay(registerId,payWay,amount,payCode) {
+  // console.log(4444)
+  return axios.post('/StudentRegisterManager/StudentPayForRegisterFirstCheck.action',param2Query({registerId,payWay,amount,payCode}))
+}
+
+export function paySecond(registerId,payWay,amount,payCode) {
+  console.log(4444)
   return axios.post('/StudentRegisterManager/StudentPayForRegister.action',param2Query({registerId,payWay,amount,payCode}))
 }
 
