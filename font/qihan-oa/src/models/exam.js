@@ -1,8 +1,11 @@
 /**
  * Created by fangf on 2016/11/21.
+ * revised by ljz on2018/5/18.
+ * model
  */
 import * as api from '../services/exam';
 import {message} from 'antd';
+
 
 let status = {
   HAS_BEEN_CHECKIN:'已报考',
@@ -44,16 +47,6 @@ export default {
     },
     *exportArchives({payload}, {put, call}) {
       let res = yield call(api.exportArchives, payload.ids);
-      let filename = res.headers['filename'];
-      var blob = new Blob([res.data]);
-      var downloadUrl = URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.href = downloadUrl;
-      a.download = filename;
-      a.click();
-    },
-    *exportStudentImg({payload}, {put, call}) {
-      let res = yield call(api.exportStudentImg, payload.ids);
       let filename = res.headers['filename'];
       var blob = new Blob([res.data]);
       var downloadUrl = URL.createObjectURL(blob);

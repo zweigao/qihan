@@ -499,7 +499,7 @@ const PaymentForm = Form.create()(React.createClass({
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="支付金额(元)"
+          label="支付金额(分)"
           hasFeedback>
           {getFieldDecorator('amount', {
             initialValue:payment.amount,
