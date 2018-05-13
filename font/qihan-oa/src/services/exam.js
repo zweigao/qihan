@@ -19,3 +19,6 @@ export function del(examHistoryId) {
 export function exportArchives(registerItemIds) {
   return axios.post('/ExamCheckInManager/examCheckInExport.action', registerItemIds, {responseType: 'blob'})
 }
+export function exportStudentImg(registerItemIds) {
+  return axios.post('/UserInfoManager/exportStudentImg.action', registerItemIds, {responseType: 'blob'})
+}
