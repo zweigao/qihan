@@ -103,21 +103,21 @@ class AchievementTable extends Component {
         v.error = errors[1][v.student.id];
         return v;
       });
-    return (
-      <div>
-        {achievement.length > 0 ? <Tag style={{marginBottom: '15px'}}>{'总交易额：' + achievement.reduce(((a, b) => a + b.amount), 0)}</Tag> : null }
-        {sessionStorage.tokenType=='MARKET'?<div style={{marginBottom: 10}}><Button onClick={this.showSmsModal} type="primary" >发送短信</Button></div>:null}
-        <Table size="small" ref="table" rowKey="index" rowSelection={sessionStorage.tokenType=='MARKET'?rowSelection:null} columns={this.renderAchivColumns()} dataSource={achievement} loading={this.props.loading}
-               rowClassName={(record)=>{return errors.length!=0&&errors[0].indexOf(record.student.id)>=0?'yellow':''}}/>
-        <Modal title="发送短信"
-               visible={this.state.visible}
-               onOk={this.sendSms}
-               confirmLoading={sending}
-               onCancel={this.handleCancel}>
-          <SmsForm {...this.props} ref="sms"/>
-        </Modal>
-      </div>
-    )
+    // return (
+    //   <div>
+    //     {achievement.length > 0 ? <Tag style={{marginBottom: '15px'}}>{'总交易额：' + achievement.reduce(((a, b) => a + b.amount), 0)}</Tag> : null }
+    //     {sessionStorage.tokenType=='MARKET'?<div style={{marginBottom: 10}}><Button onClick={this.showSmsModal} type="primary" >发送短信</Button></div>:null}
+    //     <Table size="small" ref="table" rowKey="index" rowSelection={sessionStorage.tokenType=='MARKET'?rowSelection:null} columns={this.renderAchivColumns()} dataSource={achievement} loading={this.props.loading}
+    //            rowClassName={(record)=>{return errors.length!=0&&errors[0].indexOf(record.student.id)>=0?'yellow':''}}/>
+    //     <Modal title="发送短信"
+    //            visible={this.state.visible}
+    //            onOk={this.sendSms}
+    //            confirmLoading={sending}
+    //            onCancel={this.handleCancel}>
+    //       <SmsForm {...this.props} ref="sms"/>
+    //     </Modal>
+    //   </div>
+    // )
   }
 }
 

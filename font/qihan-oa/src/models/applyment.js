@@ -8,9 +8,9 @@ import {message} from 'antd';
 let paymentWay = {
   WECHAT:'微信转账',
   ALIPAY:'支付宝转账',
-  BANK_TRANSFER:'银行转账',
-  CASH:'现金支付',
-  COOPERATE_WITH_SCHOOLS: '合作院校转帐'
+  // BANK_TRANSFER:'银行转账',
+  CASH:'现金支付'
+  // COOPERATE_WITH_SCHOOLS: '合作院校转帐'
 };
 let status = {
   WAIT_FOR_CHECK:'等待审核',
