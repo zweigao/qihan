@@ -321,7 +321,8 @@ class Applyment extends React.Component{
       }:{
         title: '金额(元)',
         dataIndex: "amount",
-        render: v=>(v / 100).toFixed(2),
+        // render: v=>(v / 100).toFixed(2),
+        render: v=>v.toFixed(2),
         sorter: (a, b) => a.amount - b.amount
       }
       , {

@@ -320,7 +320,7 @@ class Applyment extends React.Component{
       }:{
         title: '金额(元)',
         dataIndex: "amount",
-        render: v=>(v / 100).toFixed(2),
+        render: v=>v.toFixed(2),
         sorter: (a, b) => a.amount - b.amount
       }
       , {
@@ -330,8 +330,8 @@ class Applyment extends React.Component{
           {text: '微信转账', value: '微信转账'},
           {text: '支付宝转账', value: '支付宝转账'},
           {text: '银行转账', value: '银行转账'},
-          {text: '现金支付', value: '现金支付'},
-          {text: '合作院校转帐', value: '合作院校转帐'}
+          // {text: '现金支付', value: '现金支付'},
+          // {text: '合作院校转帐', value: '合作院校转帐'}
         ],
         render: v=><Tag>{v||'未支付'}</Tag>,
         onFilter: (value, record) => record.payWay == value

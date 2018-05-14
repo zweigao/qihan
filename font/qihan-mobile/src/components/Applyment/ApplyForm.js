@@ -20,6 +20,7 @@ import {
 } from 'rc-form';
 import MenuList from './MenuList'
 import SchoolList from './SchoolList'
+import TeacherList from './teacherList'
 import styles from './ApplyForm.less'
 import {
   connect
@@ -60,6 +61,7 @@ class ApplyForm extends React.Component {
 
     this.showMenus = this.showMenus.bind(this)
     this.showSchool = this.showSchool.bind(this)
+    this.showTeacher = this.showTeacher.bind(this)
     this.onCardCodeChange = this.onCardCodeChange.bind(this)
     this.onImageChange = this.onImageChange.bind(this)
     this.submit = this.submit.bind(this)
@@ -147,6 +149,8 @@ class ApplyForm extends React.Component {
         profession: applymentInfo.studentInfo.profession,
         qqCode: applymentInfo.studentInfo.qqCode,
         schoolName: applymentInfo.studentInfo.schoolName,
+        teacherName: applymentInfo.studentInfo.teacherName,
+        teacherNum: applymentInfo.studentInfo.teacherNum,
         gender: [applymentInfo.studentInfo.sex],
         nation: applymentInfo.studentInfo.nation
       })
@@ -172,9 +176,7 @@ class ApplyForm extends React.Component {
           sex: value.gender[0],
           nation: value.nation
         }
-        const {
-          applymentInfo
-        } = this.props.applyment
+        const {   applymentInfo } = this.props.applyment
         if (applymentInfo && applymentInfo.registerItem) {
           studentInfo.id = applymentInfo.studentInfo.id
           this.props.updateRegisterInfo({
@@ -187,15 +189,17 @@ class ApplyForm extends React.Component {
               },
               userStanderImg: value.standarImg
             },
-            validata: value.smsValidator
+            // validata: value.smsValidator
+            // validata:"123456"
           })
         } else {
           this.props.register({
             studentInfo,
-            registerTimingItemId: value.displayItem[0],
+            registerTimingItemId: value.teacherNum,
             standerImg: value.standarImg,
             examArea: value.examArea && value.examArea.join(' '),
-            validata: value.smsValidator,
+            // validata: value.smsValidator,
+            // validata:"123456",
             saleManId: this.props.location.query.staff
           })
         }
@@ -272,6 +276,29 @@ class ApplyForm extends React.Component {
       <SchoolList {...props}></SchoolList>
     )
   }
+
+  showTeacher() {
+      const that = this
+      var teachers = this.props.applyment.registerDisplayItems
+      const props = {
+        teachers,
+        hiddenPopup() {
+          Popup.hide()
+        },
+        onSchoolClick(s,idx) {
+          that.props.form.setFieldsValue({
+            teacherName:s,
+            teacherNum:teachers[idx].value
+          })
+          console.log(teachers[idx].value)
+          Popup.hide()
+        }
+      }
+      this.showPopup(
+        <TeacherList {...props}></TeacherList>
+      )
+  }
+
 
   onCardCodeChange(value) {
     const {
@@ -397,14 +424,31 @@ class ApplyForm extends React.Component {
         </WingBlank> : null
       }
 
+
       <List renderHeader={() => '报名资料'}>
+
+
         <Item extra={getFieldValue('registerItem') && getFieldValue('registerItem').name || '点击选择报考科目'} wrap key={'menu'} arrow="horizontal" onClick={this.showMenus}>{'报考科目'}</Item>
-        <Picker data={this.props.applyment.registerDisplayItems} cols={1} visible={this.state.displayPickerVisible} onDismiss={() => this.onDisplayItemClick(false)} {...getFieldProps('displayItem', {
-            rules: [{ required: true, type: 'array', message: '考试项目不能为空' }],
-            onChange: () => this.onDisplayItemClick(false)
-          })}>
-            <Item arrow="horizontal" className={styles.require} onClick={() => this.onDisplayItemClick(true)}>考试项目</Item>
-        </Picker>
+
+
+        <Item 
+          extra={this.props.form.getFieldValue('teacherName') || '请选择'}
+          {...getFieldProps('teacherName',{
+            rules: [meterialNeed.oriSchoolNameNeedFlag ? { required: true, message: '考试项目不能为空' } : {}]
+          })}
+          {...getFieldProps('teacherNum',{
+            rules: [meterialNeed.oriSchoolNameNeedFlag ? { required: true, message: '考试项目不能为空' } : {}]
+          })}
+          className={meterialNeed.oriSchoolNameNeedFlag ? styles.require : ''}
+          arrow="horizontal"
+          onClick={this.showTeacher}>
+            考试项目
+        </Item>
+
+
+
+
+
         {meterialNeed.id !== undefined ?
           <Picker data={citys} cols={2} {...getFieldProps('examArea', {
             rules: [meterialNeed.examAreaNeedFlag ? { required: true, type: 'array', message: '报考城市不能为空' } : { type: 'array' }]
