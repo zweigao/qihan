@@ -249,13 +249,13 @@ class StudentsList extends React.Component {
       visibleExam: false
     });
   };
-     exportStudentImg = () => {
+ exportStudentImg = () => {
     if (selectedKeys.length==0){
       message.warning('请选择至少一条数据');
       return;
     }
     this.props.dispatch({
-      type: 'exam/exportStudentImg',
+      type: 'students/exportStudentImg',
       payload: { ids: selectedKeys.map(v=>(this.props.students.data[v].id)) }
     });
   }
