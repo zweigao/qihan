@@ -139,14 +139,14 @@ export const ExtractionForm = Form.create()(React.createClass({
         <FormItem
           {...formItemLayout}
           label="提成"
-          hasFeedback>
+        >
           {getFieldDecorator('dividend', {
             initialValue: dividend,
             rules: [{
               required: true, message: '请填写提成'
             }]
           })(
-            <Input type="input"/>
+            <Input addonAfter="元"/>
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>

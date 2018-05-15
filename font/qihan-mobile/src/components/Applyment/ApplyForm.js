@@ -426,9 +426,14 @@ class ApplyForm extends React.Component {
 
 
       <List renderHeader={() => '报名资料'}>
-
-
-        <Item extra={getFieldValue('registerItem') && getFieldValue('registerItem').name || '点击选择报考科目'} wrap key={'menu'} arrow="horizontal" onClick={this.showMenus}>{'报考科目'}</Item>
+        <Item extra={getFieldValue('registerItem') && getFieldValue('registerItem').name || '点击选择报考科目'}
+        {...getFieldProps('registerItem',{
+            rules: [meterialNeed.oriSchoolNameNeedFlag ? { required: true, message: '报考科目不能为空' } : {}]
+        })}
+         wrap key={'menu'} 
+         arrow="horizontal" 
+         onClick={this.showMenus}>{'报考科目'}
+        </Item>
 
 
         <Item 
@@ -444,11 +449,6 @@ class ApplyForm extends React.Component {
           onClick={this.showTeacher}>
             考试项目
         </Item>
-
-
-
-
-
         {meterialNeed.id !== undefined ?
           <Picker data={citys} cols={2} {...getFieldProps('examArea', {
             rules: [meterialNeed.examAreaNeedFlag ? { required: true, type: 'array', message: '报考城市不能为空' } : { type: 'array' }]
