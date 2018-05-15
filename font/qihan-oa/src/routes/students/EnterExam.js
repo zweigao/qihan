@@ -166,16 +166,6 @@ class EnterExam extends Component {
       payload: { ids: selectedKeys.map(v=>(this.props.exam.data[v].id)) }
     });
   };
-  exportStudentImg = () => {
-      if (selectedKeys.length==0){
-        message.warning('请选择至少一条数据');
-        return;
-      }
-      this.props.dispatch({
-        type: 'exam/exportStudentImg',
-        payload: { ids: selectedKeys.map(v=>(this.props.exam.data[v].id)) }
-      });
-    };
 
   render() {
     let {data,loading} = this.props.exam;
@@ -189,7 +179,6 @@ class EnterExam extends Component {
       });
     return (
       <Card title="报考管理" extra={<span>
-        <Tooltip title="导出头像"><Button onClick={this.exportStudentImg} type="ghost" shape="circle" icon="picture" /></Tooltip>
         <Tooltip title="发送短信"><Button onClick={this.showSmsModal} type="ghost" shape="circle" icon="mail" /></Tooltip>
         <Tooltip title="导出报考表"><Button onClick={this.exportArchives} type="ghost" shape="circle" icon="folder" /></Tooltip>
       </span>}>

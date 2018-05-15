@@ -249,13 +249,16 @@ class StudentsList extends React.Component {
       visibleExam: false
     });
   };
-
-  renderExtraButtons(){
-    return (
-      <Tooltip title="发送短信"><Button onClick={this.showModal} type="ghost" shape="circle" icon="mail" /></Tooltip>
-    )
+ exportStudentImg = () => {
+    if (selectedKeys.length==0){
+      message.warning('请选择至少一条数据');
+      return;
+    }
+    this.props.dispatch({
+      type: 'students/exportStudentImg',
+      payload: { ids: selectedKeys.map(v=>(this.props.students.data[v].id)) }
+    });
   }
-
   render() {
     let {visible,visible2,filter,currentId,visibleExam} = this.state;
     let {data,loading,examdata} = this.props.students;
@@ -270,7 +273,10 @@ class StudentsList extends React.Component {
         return v;
       });
     return (
-      <Card title="学员管理" extra={this.renderExtraButtons()}>
+      <Card title="学员管理" extra={<span>
+        <Tooltip title="导出头像"><Button onClick={this.exportStudentImg} type="ghost" shape="circle" icon="picture" /></Tooltip>
+        <Tooltip title="发送短信"><Button onClick={this.showModal} type="ghost" shape="circle" icon="mail" /></Tooltip>
+      </span>}>
         <SearchInput style={{width:200,marginBottom:20}} onChange={v=>this.setState({filter:v})} placeholder="筛选数据" />
         <Table ref="table" rowKey="index" rowSelection={rowSelection} columns={this.columns} dataSource={data} loading={loading} size="small" pagination={{pageSize:20}}
                rowClassName={(record)=>{return errors.length!=0&&errors[0].indexOf(record.id)>=0?'yellow':''}}/>

@@ -11,3 +11,7 @@ export async function getAll() {
 export async function upd(data) {
   return axios.post('UserInfoManager/updateStudentInfo.action',data)
 }
+
+export function exportStudentImg(registerItemIds) {
+  return axios.post('/UserInfoManager/exportStudentImg.action', registerItemIds, {responseType: 'blob'})
+}

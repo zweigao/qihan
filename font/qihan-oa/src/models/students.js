@@ -72,6 +72,16 @@ export default {
       a.href = downloadUrl;
       a.download = filename;
       a.click();
+    },
+    *exportStudentImg({payload}, {put, call}) {
+      let res = yield call(api.exportStudentImg, payload.ids);
+      let filename = res.headers['filename'];
+      var blob = new Blob([res.data]);
+      var downloadUrl = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = downloadUrl;
+      a.download = filename;
+      a.click();
     }
   },
   //接收action，同步更新state
