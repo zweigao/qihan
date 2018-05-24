@@ -379,7 +379,6 @@ class Applyment extends React.Component{
       </div>:
       <div>
         <Tooltip title="查看资料"><Icon type="eye-o" onClick={()=>this.showArchive(v,r,r.index)} style={{color:'cadetblue'}} /></Tooltip>　
-        <Tooltip title="确认支付"><Icon type="credit-card" onClick={()=>this.showPayment(v,r,r.index)} style={{color:'cadetblue'}} /></Tooltip>
       </div>
   );
 

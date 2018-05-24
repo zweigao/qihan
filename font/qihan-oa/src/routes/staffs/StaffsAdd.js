@@ -19,6 +19,7 @@ const StaffsAdd = React.createClass({
     } = this.props;
     let form = this.refs['form'];
     form.validateFieldsAndScroll((err, values) => {
+      console.log(values)
       if (!err) {
         dispatch({
           type: 'staffs/add',
@@ -60,7 +61,9 @@ export const AddForm = Form.create()(React.createClass({
     };
     let {
       name,
+      userName,
       mobile,
+      password,
       identityCardCode
     } = this.props.data || {};
     return (
@@ -80,6 +83,19 @@ export const AddForm = Form.create()(React.createClass({
         </FormItem>
         <FormItem
           {...formItemLayout}
+          label="账号"
+          hasFeedback>
+          {getFieldDecorator('userName', {
+            initialValue: userName,
+            rules: [{
+              required: true, message: '请填写你的账号'
+            }]
+          })(
+            <Input type="input"/>
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
           label="手机号码"
           hasFeedback>
           {getFieldDecorator('mobile', {
@@ -89,6 +105,19 @@ export const AddForm = Form.create()(React.createClass({
             }]
           })(
             <Input type="input"/>
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="密码"
+          hasFeedback>
+          {getFieldDecorator('password', {
+            initialValue: password,
+            rules: [{
+              required: true, message: '请填写你的密码'
+            }]
+          })(
+            <Input type="password"/>
           )}
         </FormItem>
         <FormItem
