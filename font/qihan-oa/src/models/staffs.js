@@ -29,9 +29,7 @@ export default {
     },
     * add({
       name,
-      userName,
       mobile,
-      password,
       idCard
     }, {
       put,
@@ -39,16 +37,14 @@ export default {
     }) {
       let {
         data
-      } = yield call(api.add, name,userName,mobile,password,idCard);
+      } = yield call(api.add, name,mobile,idCard);
       if (data.code == 1)
         yield put({
           type: 'addSync',
           staff: {
             id: data.data,
             name,
-            userName,
             mobile,
-            password,
             identityCardCode: idCard
           }
         })
