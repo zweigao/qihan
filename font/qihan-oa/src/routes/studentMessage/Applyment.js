@@ -421,7 +421,7 @@ class Applyment extends React.Component{
                rowClassName={(record)=>{return errors.length!=0&&errors[0].indexOf(record.student.id)>=0?'yellow':''}}/>
         <Modal title="报名资料" width="50%"
                style={{ top: 20 }}
-               footer={sessionStorage.tokenType=='MANAGER'?this.renderModalFooter():null}
+               footer={sessionStorage.tokenType=='SALEMAN'?this.renderModalFooter():null}
                className="ant-table-content"
                visible={visible}
                onCancel={this.handleCancel}>

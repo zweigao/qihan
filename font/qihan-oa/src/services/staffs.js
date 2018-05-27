@@ -7,17 +7,12 @@ export function getAll() {
 	return axios.get('/SalemanManager/retrieveAllSaleman.action');
 }
 
-export function add(name,userName,mobile,password,identityCardCode) {
+export function add(name,mobile,identityCardCode) {
 	return axios.post('/SalemanManager/createSaleman.action', {
 		name,
-		userName,
 		mobile,
-		password,
 		identityCardCode,
-		managerName:name,
-		token_type:"SALEMAN",
 		loginBandom: false,
-		activityFlag:true
 	})
 }
 
