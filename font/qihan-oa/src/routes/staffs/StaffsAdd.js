@@ -58,6 +58,7 @@ export const AddForm = Form.create()(React.createClass({
         offset: 6
       }
     };
+    console.log(this.props.data)   //获取分页的数据
     let {
       name,
       mobile,

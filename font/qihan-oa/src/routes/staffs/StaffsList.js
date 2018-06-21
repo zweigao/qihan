@@ -40,9 +40,11 @@ class StaffsList extends React.Component {
   constructor(props) {
     super(props);
     if (props.staffs.data.length == 0)
+      console.log(props.staffs.data)
       props.dispatch({
         type: 'staffs/getList'
       });
+      console.log(props.staffs.data)
     this.state = {
       index: -1,
       visible: false,
@@ -52,6 +54,8 @@ class StaffsList extends React.Component {
   }
 
   showEdit = (index) => {
+    index=index-1
+    console.log(index);
     this.setState({
       visible: true,
       index
@@ -120,6 +124,7 @@ class StaffsList extends React.Component {
   };
 
   showAchievement(id) {
+    // console.log(id)
     this.props.dispatch({
       type: 'staffs/fetchAchievement',
       payload: {
@@ -169,7 +174,7 @@ class StaffsList extends React.Component {
           <Popconfirm title={(r.loginBandom?'启用':'禁用')+"该账号？"} onConfirm={()=>this.props.dispatch({type:'staffs/ban',index:i})} okText="确定" cancelText="取消">
             <Tooltip title={r.loginBandom? '启用' : '禁用'}>{r.loginBandom?<Icon type="check-circle-o" style={{color:'#87d068'}}/>:<Icon type="minus-circle-o" style={{color:'tomato'}} />}</Tooltip>
           </Popconfirm>　
-          <Tooltip title="编辑"><Icon type="edit" style={{color:'cadetblue'}} onClick={()=>this.showEdit(i)}/></Tooltip>　
+          <Tooltip title="编辑"><Icon type="edit" style={{color:'cadetblue'}} onClick={()=>this.showEdit(r.id)}/></Tooltip>　
           <Popover trigger="click" content={<QRCode value={axios.defaults.qrcodeURL+'?staff='+r.id} />}><Tooltip title={"二维码"}><Icon type="qrcode"/></Tooltip></Popover>
           <Tooltip title="添加提成"><Icon type="pay-circle-o" style={{color:'cadetblue'}} onClick={() => this.InputExtraction(i)}/></Tooltip>
         </div>
@@ -200,8 +205,8 @@ class StaffsList extends React.Component {
     return (
         <Card title="业务人员列表" extra={<div><Tooltip title="导出业绩"><Button onClick={this.exportAchievement} type="ghost" shape="circle" icon="folder" /> < /Tooltip></div >
       } >
-      <SearchInput style={{width:150,marginBottom:20}} onChange={v=>this.setState({filter:v})}/> <
-      Table rowKey = "id"
+      <SearchInput style={{width:150,marginBottom:20}} onChange={v=>this.setState({filter:v})}/> 
+      <Table rowKey = "id"
     rowSelection = {
       rowSelection
     }

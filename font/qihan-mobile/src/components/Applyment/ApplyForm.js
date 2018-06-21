@@ -642,9 +642,9 @@ class ApplyForm extends React.Component {
               />}
             multipleLine
             {...getFieldProps('studentCardImg', {
-              rules: [{ required: true, message: '学生证照片不能为空' }]
+              rules: [{ required: true, message: '学生证或毕业证照片不能为空' }]
             })}
-            key={'student'}>学生证照片
+            key={'student'}>学生证<Brief>或毕业证照</Brief>
           </Item> : null
         }
       </List> : null
