@@ -36,15 +36,14 @@ const rowSelection = {
 };
 
 class StaffsList extends React.Component {
-
   constructor(props) {
     super(props);
     if (props.staffs.data.length == 0)
-      console.log(props.staffs.data)
+      // console.log(props.staffs.data)
       props.dispatch({
         type: 'staffs/getList'
       });
-      console.log(props.staffs.data)
+    console.log(props.staffs.data)
     this.state = {
       index: -1,
       visible: false,
@@ -54,8 +53,12 @@ class StaffsList extends React.Component {
   }
 
   showEdit = (index) => {
+    // console.log(index)
     index=index-1
-    console.log(index);
+    if(index >= 204) {
+      index=index-13
+    }
+    console.log(index)
     this.setState({
       visible: true,
       index

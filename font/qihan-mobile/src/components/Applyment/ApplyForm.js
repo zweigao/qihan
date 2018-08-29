@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import axios from 'axios'
 import {
   List,
   InputItem,
@@ -29,7 +30,16 @@ import imgUri from '../../utils/imgUri'
 
 const Item = List.Item
 const Brief = Item.Brief
-const schools = require('../../assets/guangdong.json')
+// const schools = require('../../assets/guangdong.json')
+let schools = require('../../assets/guangdong.json')
+let schools_list1= require('../../assets/guangdong_list1.json')
+let schools_list2 = require('../../assets/guangdong_list2.json')
+let schools_list3 = require('../../assets/guangdong_list3.json')
+let schools_list4 = require('../../assets/guangdong_list4.json')
+// let schools = [] 
+schools=schools.concat(schools_list1,schools_list2,schools_list3,schools_list4)
+console.log(schools)
+
 const citys = require('../../assets/citys.json')
 const {
   alert,
@@ -43,11 +53,19 @@ const imagesEnum = {
   STUDENTCARD: 'studentImgFiles'
 }
 
+// axios.get('RegisterAction/getSchoollist.action')
+//   .then(function (response) {
+//     // console.log(response.data.data);
+//     schools = response.data.data
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   });
+
 class ApplyForm extends React.Component {
 
   constructor(props) {
     super(props)
-
     this.state = {
       registerItem: {},
       standarImgFiles: [],
@@ -426,6 +444,7 @@ class ApplyForm extends React.Component {
 
 
       <List renderHeader={() => '报名资料'}>
+
         <Item extra={getFieldValue('registerItem') && getFieldValue('registerItem').name || '点击选择报考科目'}
         {...getFieldProps('registerItem',{
             rules: [meterialNeed.oriSchoolNameNeedFlag ? { required: true, message: '报考科目不能为空' } : {}]
@@ -436,19 +455,24 @@ class ApplyForm extends React.Component {
         </Item>
 
 
-        <Item 
-          extra={this.props.form.getFieldValue('teacherName') || '请选择'}
-          {...getFieldProps('teacherName',{
-            rules: [meterialNeed.oriSchoolNameNeedFlag ? { required: true, message: '考试项目不能为空' } : {}]
-          })}
-          {...getFieldProps('teacherNum',{
-            rules: [meterialNeed.oriSchoolNameNeedFlag ? { required: true, message: '考试项目不能为空' } : {}]
-          })}
-          className={meterialNeed.oriSchoolNameNeedFlag ? styles.require : ''}
-          arrow="horizontal"
-          onClick={this.showTeacher}>
-            考试项目
-        </Item>
+        {meterialNeed.standerImgNeedFlag ?
+          <Item 
+            extra={this.props.form.getFieldValue('teacherName') || '请选择'}
+            {...getFieldProps('teacherName',{
+              rules: [meterialNeed.oriSchoolNameNeedFlag ? { required: true, message: '考试项目不能为空' } : {}]
+            })}
+            {...getFieldProps('teacherNum',{
+              rules: [meterialNeed.oriSchoolNameNeedFlag ? { required: true, message: '考试项目不能为空' } : {}]
+            })}
+            className={meterialNeed.oriSchoolNameNeedFlag ? styles.require : ''}
+            arrow="horizontal"
+            onClick={this.showTeacher}>
+              考试项目
+          </Item> : null
+        }
+
+
+        
         {meterialNeed.id !== undefined ?
           <Picker data={citys} cols={2} {...getFieldProps('examArea', {
             rules: [meterialNeed.examAreaNeedFlag ? { required: true, type: 'array', message: '报考城市不能为空' } : { type: 'array' }]
@@ -534,6 +558,8 @@ class ApplyForm extends React.Component {
         })}>
           <Item arrow="horizontal" className={styles.require}>性别</Item>
         </Picker>
+
+
         <Item 
           extra={this.props.form.getFieldValue('schoolName') || '点击选择学校'}
           wrap
@@ -546,6 +572,9 @@ class ApplyForm extends React.Component {
           onClick={this.showSchool}>
             学校
         </Item>
+
+
+
         <InputItem
           {...getFieldProps('nativePlace', {
             rules: [meterialNeed.nativePlaceNeedFlag ? { required: true, message: '籍贯不能为空' } : {}]
